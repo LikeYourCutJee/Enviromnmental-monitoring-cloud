@@ -1,0 +1,47 @@
+#==============================================================
+# Spring-app Configuration
+#==============================================================
+
+spring:
+  application:
+    name: event-service
+
+  r2dbc:
+    url: r2dbc:pool:postgresql://192.168.68.58:5432/dev_telemetry
+    username: dev
+    password: password
+
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8085
+
+#==============================================================
+# App Configuration
+#==============================================================
+
+emqx:
+  enable: true
+  host: https://192.168.68.58:18084
+  api:
+    key: 5c44c5e72aabf113
+    secret: FuZuPC7FhxmF1rTOd3kxKBawsw9Bcx39ALKK8EG46tqZO
+  mqtt:
+    host: tcp://192.168.68.58:1883
+    # host: tcp://192.168.68.58:1883
+    client:
+      id: app-${random.uuid}
+    username: ""
+    password: ""
+    request:
+      topic:
+        tpl: devices/%s/rpc/request
+    reply:
+      prefix: reply
+    qos: 1
+    timeout:
+      seconds: 30
+
